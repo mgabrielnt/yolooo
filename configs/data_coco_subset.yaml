@@ -1,0 +1,17 @@
+# Subset 10 kelas populer COCO. Ubah path ke lokasi COCO lokal Anda.
+path: /absolute/path/to/coco2017
+train: train2017/images
+val: val2017/images
+nc: 10
+names:
+  - person
+  - car
+  - bicycle
+  - dog
+  - cat
+  - bus
+  - truck
+  - traffic light
+  - stop sign
+  - motorcycle
+# Gunakan argumen classes di Ultralytics jika ingin membatasi kelas saat training.
