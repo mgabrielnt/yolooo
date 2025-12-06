@@ -12,6 +12,83 @@ pip install -r requirements.txt
 
 > Instal PyTorch dengan CUDA sesuai GPU Anda mengikuti panduan resmi: https://pytorch.org/get-started/locally/
 
+## Panduan PowerShell: dari Awal sampai Akhir
+Urutan eksekusi lengkap di PowerShell (buka dari root repo `yolooo`):
+
+1) **Kloning atau buka repo** (jika belum):
+   ```ps1
+   git clone https://github.com/mgabrielnt/yolooo.git
+   cd yolooo
+   ```
+
+2) **Buat dan aktifkan virtual environment + install dependency**:
+   ```ps1
+   py -3.10 -m venv .venv
+   .venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+
+3) **Atur path COCO di YAML**: edit `configs/data_coco_full.yaml` dan `configs/data_coco_subset.yaml` pada kunci `path:` ke lokasi COCO Anda, contoh `D:/datasets/coco2017`.
+
+4) **Validasi struktur dataset** (opsional tapi disarankan):
+   ```ps1
+   python - <<'PY'
+   from pathlib import Path
+   from src.data_utils import summarize_dataset
+
+   print(summarize_dataset(Path('D:/datasets/coco2017')))
+   PY
+   ```
+
+5) **Jalankan training**:
+   - Baseline (E1)
+     ```ps1
+     python scripts/train_baseline.py --run-name baseline
+     ```
+   - Advanced bag-of-freebies (E2)
+     ```ps1
+     python scripts/train_advanced.py --run-name advanced
+     ```
+   - Ablation
+     ```ps1
+     python scripts/run_ablation.py --variant nomosaic
+     python scripts/run_ablation.py --variant img768
+     ```
+
+6) **Pantau hasil**: output tersimpan di `experiments/runs/<nama_run>`. File `results.csv` dan gambar default Ultralytics ada di sana.
+
+7) **Evaluasi model** (contoh memakai best advanced):
+   ```ps1
+   python scripts/eval_model.py `
+     --weights models/yolov11/best_advanced.pt `
+     --data configs/data_coco_full.yaml `
+     --split val
+   ```
+
+8) **Inferensi batch gambar**:
+   ```ps1
+   python - <<'PY'
+   from src.infer_image import infer_images
+
+   images = ['test_images/img1.jpg', 'test_images/img2.jpg']
+   infer_images('models/yolov11/best_advanced.pt', images, conf=0.25)
+   PY
+   ```
+
+9) **Inferensi webcam**:
+   ```ps1
+   python webcam_infer.py --weights models/yolov11/best_baseline.pt --source 0
+   ```
+
+10) **Ekspor weight terbaik dari sebuah run**:
+    ```ps1
+    python scripts/export_best_weights.py `
+      --run-dir experiments/runs/advanced `
+      --output-name best_advanced.pt
+    ```
+
+Tips: jika VRAM/RAM terbatas, kecilkan `batch`, gunakan `imgsz` lebih rendah, atau nonaktifkan mosaic/mixup via YAML ablation.
+
 ## Struktur Folder
 
 ```
