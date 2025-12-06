@@ -1,0 +1,15 @@
+# Inti: Ultralytics YOLO11 + dependensi data/visualisasi
+ultralytics
+
+# PyTorch stack (silakan install versi sesuai CUDA/cuDNN di mesin lokal)
+torch
+torchvision
+
+tqdm
+numpy
+pandas
+pyyaml
+opencv-python
+matplotlib
+seaborn
+scikit-learn
