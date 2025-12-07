@@ -1,24 +1,33 @@
-# Ablation tanpa mosaic/mixup (E3a)
+# Ablation tanpa mosaic/mixup (E3a) - efek bag-of-freebies
 model: yolo11s.pt
-data: configs/data_coco_subset.yaml
-epochs: 50
+data: coco128.yaml   # sama dengan baseline
+
+# Training
+epochs: 40           
 imgsz: 640
-batch: 16
-workers: 8
+batch: 8             
+workers: 2           
 device: 0
+
 optimizer: SGD
 lr0: 0.01
 lrf: 0.1
 momentum: 0.937
 weight_decay: 0.0005
+
 warmup_epochs: 3.0
 warmup_momentum: 0.8
 warmup_bias_lr: 0.1
+
+# Loss & behaviour
 box: 7.5
 cls: 0.5
-ema: True
-cos_lr: False
+dfl: 1.5
+
+cos_lr: false
 patience: 10
+
+# Augmentasi warna/geo tetap ada (supaya bener2 hanya tes mosaic/mixup)
 hsv_h: 0.015
 hsv_s: 0.7
 hsv_v: 0.4
@@ -29,8 +38,12 @@ shear: 0.0
 perspective: 0.0
 flipud: 0.0
 fliplr: 0.5
-mosaic: 0.0
-mixup: 0.0
-copy_paste: 0.0
-amp: True
-cache: False
+
+# Di sinilah ablation utamanya:
+mosaic: 0.0      
+mixup: 0.0       
+copy_paste: 0.0  
+
+amp: true
+cache: false
+seed: 42

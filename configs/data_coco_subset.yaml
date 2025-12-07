@@ -1,7 +1,14 @@
-# Subset 10 kelas populer COCO. Ubah path ke lokasi COCO lokal Anda.
-path: /absolute/path/to/coco2017
+# Subset 10 kelas populer COCO.
+# CATATAN:
+# - Tidak dipakai kalau kamu pakai coco128.yaml.
+# - Kalau nanti kamu download COCO 2017 full ke D:/datasets/coco2017,
+#   config ini bisa dipakai untuk subset 10 kelas.
+
+path: D:/datasets/coco2017   # ganti kalau lokasi COCO berbeda
+
 train: train2017/images
 val: val2017/images
+
 nc: 10
 names:
   - person
@@ -14,4 +21,3 @@ names:
   - traffic light
   - stop sign
   - motorcycle
-# Gunakan argumen classes di Ultralytics jika ingin membatasi kelas saat training.

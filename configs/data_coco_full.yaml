@@ -1,8 +1,15 @@
-# Ubah 'path' ke lokasi COCO 2017 di mesin lokal (misal D:/datasets/coco2017)
-path: /absolute/path/to/coco2017
+# Dataset COCO 2017 full (80 kelas).
+# CATATAN:
+# - Tidak dipakai kalau training pakai coco128.yaml.
+# - Aktif kalau kamu benar-benar punya COCO di D:/datasets/coco2017.
+
+# Ubah 'path' ke lokasi COCO 2017 di mesin lokal
+path: D:/datasets/coco2017
+
 train: train2017/images
 val: val2017/images
 test: test2017/images
+
 nc: 80
 names:
   - person
